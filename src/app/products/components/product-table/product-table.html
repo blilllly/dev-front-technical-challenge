@@ -1,2 +1,44 @@
-<p>product-table works!</p>
-,
+<div class="table-actions">
+  <input type="text" placeholder="Search..." class="search-input" />
+  <button class="btn-add">Agregar</button>
+</div>
+
+<table class="table-container">
+  <thead>
+    <tr>
+      <th>Logo</th>
+      <th>Nombre del Producto</th>
+      <th>Descripción <span class="info-icon">i</span></th>
+      <th>Fecha de Liberación <span class="info-icon">i</span></th>
+      <th>Fecha de Reestructuración <span class="info-icon">i</span></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (product of products(); track product.id) {
+      <tr>
+        <td>
+          <div class="product-logo">
+            {{ product.logo }}
+          </div>
+        </td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.release_date }}</td>
+        <td>{{ product.review_date }}</td>
+        <td class="cell-menu"><div class="dots-menu"></div></td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<div class="footer-table">
+  <span>5 Resultados</span>
+  <div class="pagination-select">
+    <select>
+      <option value="5">5</option>
+      <option value="10">10</option>
+    </select>
+  </div>
+</div>

@@ -1,3 +1,8 @@
 :host {
   display: block;
 }
+
+.text-footer {
+  color: white;
+  padding: 6px 20px;
+}
