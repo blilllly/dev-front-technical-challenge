@@ -1,11 +1,11 @@
 import { Pipe, type PipeTransform } from '@angular/core';
-import { FinancialProduct } from '../products/interfaces/financial-product.interface';
+import { Datum } from '../products/interfaces/responseBP.interface';
 
 @Pipe({
   name: 'ProductFilter',
 })
 export class ProductFilterPipe implements PipeTransform {
-  transform(value: FinancialProduct[], search: string): FinancialProduct[] {
+  transform(value: Datum[], search: string): Datum[] {
     if (!search) return value;
 
     search = search.toLowerCase();

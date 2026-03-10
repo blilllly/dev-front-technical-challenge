@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
-import { ResponseBP } from '../../interfaces/financial-product.interface';
+import { ResponseBP } from '../../interfaces/responseBP.interface';
 import { ProductFilterPipe } from '../../../pipes/product-filter-pipe';
 import { DatePipe } from '@angular/common';
 
