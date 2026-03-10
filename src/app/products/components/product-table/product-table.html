@@ -22,7 +22,7 @@
   </thead>
 
   <tbody>
-    @for (product of products() | ProductFilter: searchQuery(); track product.id) {
+    @for (product of products().data | ProductFilter: searchQuery(); track product.id) {
       <tr>
         <td>
           <div class="product-logo">
@@ -40,7 +40,7 @@
 </table>
 
 <div class="footer-table">
-  <span>{{ products().length }} Resultados</span>
+  <span>{{ products().data.length }} Resultados</span>
   <div class="pagination-select">
     <select>
       <option value="5">5</option>

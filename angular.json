@@ -67,6 +67,9 @@
               "buildTarget": "tcs-billy-alvear-dev-front:build:development"
             }
           },
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "defaultConfiguration": "development"
         },
         "test": {

@@ -4,7 +4,17 @@
   </header>
 
   <main class="main-container">
-    <product-table />
+    @if(productResource.isLoading()){
+      <p>Cargando productos...</p>
+    }
+
+    @if(!productResource.isLoading()){
+      <product-table [products]="productResource.value()!" />
+    }
+
+    @if (productResource.error()) {
+      <p>Estado de error..</p>
+    }
   </main>
 
   <footer>
