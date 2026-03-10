@@ -1,5 +1,11 @@
 <div class="table-actions">
-  <input type="text" placeholder="Search..." class="search-input" />
+  <input
+    type="text"
+    placeholder="Buscar..."
+    class="search-input"
+    (input)="searchQuery.set(txtSearch.value)"
+    #txtSearch
+  />
   <button class="btn-add">Agregar</button>
 </div>
 
@@ -16,7 +22,7 @@
   </thead>
 
   <tbody>
-    @for (product of products(); track product.id) {
+    @for (product of products() | ProductFilter: searchQuery(); track product.id) {
       <tr>
         <td>
           <div class="product-logo">
@@ -39,6 +45,7 @@
     <select>
       <option value="5">5</option>
       <option value="10">10</option>
+      <option value="10">20</option>
     </select>
   </div>
 </div>
