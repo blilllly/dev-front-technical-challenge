@@ -31,8 +31,8 @@
         </td>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
-        <td>{{ product.release_date }}</td>
-        <td>{{ product.review_date }}</td>
+        <td>{{ product.date_release | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ product.date_revision | date: 'dd/MM/yyyy' }}</td>
         <td class="cell-menu"><div class="dots-menu"></div></td>
       </tr>
     }
@@ -40,7 +40,7 @@
 </table>
 
 <div class="footer-table">
-  <span>5 Resultados</span>
+  <span>{{ products().length }} Resultados</span>
   <div class="pagination-select">
     <select>
       <option value="5">5</option>
