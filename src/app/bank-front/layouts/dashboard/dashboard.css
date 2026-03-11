@@ -1,3 +1,13 @@
+.container {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto 1fr;
+}
+
+footer {
+  background-color: #1a2e5a;
+}
+
 .icon-logo {
   width: 30px;
   height: 20px;
@@ -35,17 +45,6 @@
   letter-spacing: 1px;
 }
 
-.container {
-  display: grid;
-  min-height: 100dvh;
-  grid-template-rows: auto 1fr;
-}
-
 .main-container {
-  max-width: 1300px;
-  margin: 20px auto;
-}
-
-footer {
-  background-color: #1a2e5a;
+  margin: 0 auto;
 }

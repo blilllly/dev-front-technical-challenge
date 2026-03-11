@@ -5,18 +5,16 @@ import { ProductService } from '../../../products/services/product-service';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'app-home-page',
-  imports: [Footer, ProductTable],
-  templateUrl: './home-page.html',
-  styleUrl: './home-page.css',
+  selector: 'list-page',
+  imports: [ProductTable],
+  templateUrl: './list-page.html',
+  styleUrl: './list-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage {
-
+export class ListPage {
   productService = inject(ProductService);
 
   productResource = rxResource({
     stream: () => this.productService.getProducts(),
   });
-
 }
