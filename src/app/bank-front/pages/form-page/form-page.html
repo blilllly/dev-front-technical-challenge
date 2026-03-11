@@ -1,1 +1,71 @@
-<p>form-page works!</p>,
+<div>
+  <h2>Formulario de registro</h2>
+  <hr />
+</div>
+
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSave()">
+  <div>
+    <!-- Campo id -->
+    <input type="text" placeholder="id de producto" formControlName="id" />
+
+    @if (formUtils.isValidField(myForm, 'id')) {
+      <span>
+        {{ formUtils.getFieldError(myForm, 'id') }}
+      </span>
+    }
+
+    <!-- Campo name -->
+    <input type="text" placeholder="nombre" formControlName="name" />
+
+    @if (formUtils.isValidField(myForm, 'name')) {
+      <span>
+        {{ formUtils.getFieldError(myForm, 'name') }}
+      </span>
+    }
+  </div>
+
+  <div>
+    <!-- Campo description -->
+    <input type="text" placeholder="descripcion" formControlName="description" />
+
+    @if (formUtils.isValidField(myForm, 'description')) {
+      <span>
+        {{ formUtils.getFieldError(myForm, 'description') }}
+      </span>
+    }
+
+    <!-- Campo logo -->
+    <input type="text" placeholder="logo" formControlName="logo" />
+
+    @if (formUtils.isValidField(myForm, 'logo')) {
+      <span>
+        {{ formUtils.getFieldError(myForm, 'logo') }}
+      </span>
+    }
+  </div>
+
+  <div>
+    <!-- Campo date_release -->
+    <input type="date" placeholder="20/02/2023" formControlName="date_release" />
+
+    @if (formUtils.isValidField(myForm, 'date_release')) {
+      <span>
+        {{ formUtils.getFieldError(myForm, 'date_release') }}
+      </span>
+    }
+
+    <!-- Campo date_revision -->
+    <input type="date" placeholder="20/02/2024" formControlName="date_revision" />
+
+    @if (formUtils.isValidField(myForm, 'date_revision')) {
+      <span>
+        {{ formUtils.getFieldError(myForm, 'date_revision') }}
+      </span>
+    }
+  </div>
+
+  <div>
+    <button type="reset">Reiniciar</button>
+    <button type="submit">Enviar</button>
+  </div>
+</form>
