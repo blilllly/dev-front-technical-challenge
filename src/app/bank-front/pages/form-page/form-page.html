@@ -1,71 +1,115 @@
-<div>
-  <h2>Formulario de registro</h2>
-  <hr />
-</div>
+<div class="form-container">
+  <div class="form-header">
+    <h2>Formulario de registro</h2>
+    <hr />
+  </div>
 
-<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSave()">
-  <div>
+  <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSave()" class="main-form">
     <!-- Campo id -->
-    <input type="text" placeholder="id de producto" formControlName="id" />
+    <div class="form-input">
+      <label>ID</label>
+      <input
+        type="text"
+        placeholder="id de producto"
+        formControlName="id"
+        [class.invalid]="formUtils.isValidField(myForm, 'id')"
+      />
 
-    @if (formUtils.isValidField(myForm, 'id')) {
-      <span>
-        {{ formUtils.getFieldError(myForm, 'id') }}
-      </span>
-    }
+      @if (formUtils.isValidField(myForm, 'id')) {
+        <span class="error-msg">
+          {{ formUtils.getFieldError(myForm, 'id') }}
+        </span>
+      }
+    </div>
 
     <!-- Campo name -->
-    <input type="text" placeholder="nombre" formControlName="name" />
+    <div class="form-input">
+      <label>Nombre</label>
+      <input
+        type="text"
+        placeholder="nombre"
+        formControlName="name"
+        [class.invalid]="formUtils.isValidField(myForm, 'name')"
+      />
 
-    @if (formUtils.isValidField(myForm, 'name')) {
-      <span>
-        {{ formUtils.getFieldError(myForm, 'name') }}
-      </span>
-    }
-  </div>
+      @if (formUtils.isValidField(myForm, 'name')) {
+        <span class="error-msg">
+          {{ formUtils.getFieldError(myForm, 'name') }}
+        </span>
+      }
+    </div>
 
-  <div>
     <!-- Campo description -->
-    <input type="text" placeholder="descripcion" formControlName="description" />
+    <div class="form-input">
+      <label>Descripción</label>
+      <input
+        type="text"
+        placeholder="descripcion"
+        formControlName="description"
+        [class.invalid]="formUtils.isValidField(myForm, 'description')"
+      />
 
-    @if (formUtils.isValidField(myForm, 'description')) {
-      <span>
-        {{ formUtils.getFieldError(myForm, 'description') }}
-      </span>
-    }
+      @if (formUtils.isValidField(myForm, 'description')) {
+        <span class="error-msg">
+          {{ formUtils.getFieldError(myForm, 'description') }}
+        </span>
+      }
+    </div>
 
     <!-- Campo logo -->
-    <input type="text" placeholder="logo" formControlName="logo" />
+    <div class="form-input">
+      <label>Logo</label>
+      <input
+        type="text"
+        placeholder="logo"
+        formControlName="logo"
+        [class.invalid]="formUtils.isValidField(myForm, 'logo')"
+      />
 
-    @if (formUtils.isValidField(myForm, 'logo')) {
-      <span>
-        {{ formUtils.getFieldError(myForm, 'logo') }}
-      </span>
-    }
-  </div>
+      @if (formUtils.isValidField(myForm, 'logo')) {
+        <span class="error-msg">
+          {{ formUtils.getFieldError(myForm, 'logo') }}
+        </span>
+      }
+    </div>
 
-  <div>
-    <!-- Campo date_release -->
-    <input type="date" placeholder="20/02/2023" formControlName="date_release" />
+    <div class="form-input">
+      <!-- Campo date_release -->
+      <label>Fecha de Liberación</label>
+      <input
+        type="date"
+        placeholder="20/02/2023"
+        formControlName="date_release"
+        [class.invalid]="formUtils.isValidField(myForm, 'date_release')"
+      />
 
-    @if (formUtils.isValidField(myForm, 'date_release')) {
-      <span>
-        {{ formUtils.getFieldError(myForm, 'date_release') }}
-      </span>
-    }
+      @if (formUtils.isValidField(myForm, 'date_release')) {
+        <span class="error-msg">
+          {{ formUtils.getFieldError(myForm, 'date_release') }}
+        </span>
+      }
+    </div>
 
     <!-- Campo date_revision -->
-    <input type="date" placeholder="20/02/2024" formControlName="date_revision" />
+    <div class="form-input">
+      <label>Fecha de Revisión</label>
+      <input
+        type="date"
+        placeholder="20/02/2024"
+        formControlName="date_revision"
+        [class.invalid]="formUtils.isValidField(myForm, 'date_revision')"
+      />
 
-    @if (formUtils.isValidField(myForm, 'date_revision')) {
-      <span>
-        {{ formUtils.getFieldError(myForm, 'date_revision') }}
-      </span>
-    }
-  </div>
+      @if (formUtils.isValidField(myForm, 'date_revision')) {
+        <span class="error-msg">
+          {{ formUtils.getFieldError(myForm, 'date_revision') }}
+        </span>
+      }
+    </div>
 
-  <div>
-    <button type="reset">Reiniciar</button>
-    <button type="submit">Enviar</button>
-  </div>
-</form>
+    <div class="button-container">
+      <button type="reset" class="btn-reset">Reiniciar</button>
+      <button type="submit" class="btn-submit">Enviar</button>
+    </div>
+  </form>
+</div>
