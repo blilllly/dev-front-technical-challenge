@@ -1,4 +1,6 @@
-import { FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormGroup, ValidationErrors } from '@angular/forms';
+import { ProductService } from '../products/services/product-service';
+import { catchError, map, Observable, of } from 'rxjs';
 
 export class FormUtils {
   static getTextError(errors: ValidationErrors) {
@@ -12,6 +14,9 @@ export class FormUtils {
 
         case 'maxlength':
           return `Este campo requiere un máximo de ${errors['maxlength'].requiredLength} caracteres.`;
+
+        case 'idExists':
+          return `Este id ya está en uso`;
 
         default:
           return `Error de validación no controlado. ${key}`;
@@ -30,5 +35,16 @@ export class FormUtils {
     const errors = form.controls[fieldName].errors ?? {};
 
     return this.getTextError(errors);
+  }
+
+  static idExistValidator(productService: ProductService): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      if (!control.value) return of(null);
+
+      return productService.verifyId(control.value).pipe(
+        map((exists) => (exists ? { idExists: true } : null)),
+        catchError(() => of(null)),
+      );
+    };
   }
 }

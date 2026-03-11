@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
+import { ProductService } from '../../../products/services/product-service';
 
 @Component({
   selector: 'form-page',
@@ -11,11 +12,16 @@ import { FormUtils } from '../../../utils/form-utils';
 })
 export class FormPage {
   formUtils = FormUtils;
+  productService = inject(ProductService);
 
   private fb = inject(FormBuilder);
 
   myForm = this.fb.group({
-    id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+    id: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
+      this.formUtils.idExistValidator(this.productService),
+    ],
     name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
     description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
     logo: ['', Validators.required],
