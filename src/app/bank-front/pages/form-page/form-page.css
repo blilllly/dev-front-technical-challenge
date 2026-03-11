@@ -56,13 +56,6 @@ input.invalid {
   margin-top: 4px;
 }
 
-/* Deshabilitado (Fecha Revisión) */
-/* input:disabled {
-  background-color: #f9f9f9;
-  color: #999;
-  border: 1px solid #eee;
-} */
-
 .button-container {
   grid-column: span 2; /* Ocupa las dos columnas */
   display: flex;
@@ -88,6 +81,11 @@ button {
 .btn-submit {
   background-color: #ffff0a;
   color: #000000;
+}
+
+.disable {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* Responsivo: 1 columna en celulares */

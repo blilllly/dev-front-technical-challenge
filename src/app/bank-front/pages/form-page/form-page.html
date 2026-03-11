@@ -78,8 +78,8 @@
       <label>Fecha de Liberación</label>
       <input
         type="date"
-        placeholder="20/02/2023"
         formControlName="date_release"
+        [min]="minDate()"
         [class.invalid]="formUtils.isValidField(myForm, 'date_release')"
       />
 
@@ -95,7 +95,6 @@
       <label>Fecha de Revisión</label>
       <input
         type="date"
-        placeholder="20/02/2024"
         formControlName="date_revision"
         [class.invalid]="formUtils.isValidField(myForm, 'date_revision')"
       />
@@ -109,7 +108,14 @@
 
     <div class="button-container">
       <button type="reset" class="btn-reset">Reiniciar</button>
-      <button type="submit" class="btn-submit">Enviar</button>
+      <button
+        type="submit"
+        class="btn-submit"
+        [disabled]="myForm.invalid"
+        [class.disable]="myForm.invalid"
+      >
+        Enviar
+      </button>
     </div>
   </form>
 </div>
