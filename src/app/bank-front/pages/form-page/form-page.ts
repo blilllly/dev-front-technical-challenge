@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
 import { ProductService } from '../../../products/services/product-service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Datum } from '../../../products/interfaces/responseBP.interface';
 
 @Component({
   selector: 'form-page',
@@ -65,12 +66,5 @@ export class FormPage {
       });
   }
 
-  onSave() {
-    if (this.myForm.invalid) {
-      this.myForm.markAllAsTouched();
-      return;
-    }
-
-    console.log(this.myForm.getRawValue());
-  }
+  onSave() {}
 }
