@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
 import { ProductService } from '../../../products/services/product-service';
-import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Datum } from '../../../products/interfaces/responseBP.interface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'form-page',
@@ -13,6 +15,12 @@ import { Datum } from '../../../products/interfaces/responseBP.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormPage {
+
+  // Obtener el ID del producto de la URL
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+  productId = toSignal(this.activatedRoute.params.pipe(map((params) => params['id'])));
+
   minDate = signal<string>(this.getToday());
 
   //Obtener fecha actual para el minDate

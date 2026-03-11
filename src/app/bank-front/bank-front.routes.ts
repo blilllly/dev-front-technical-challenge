@@ -16,6 +16,10 @@ export const bankFrontRoutes: Routes = [
         path: 'register',
         component: FormPage,
       },
+      {
+        path: 'edit/:id',
+        component: FormPage,
+      }
     ],
   },
 ];

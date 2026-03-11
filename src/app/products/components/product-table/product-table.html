@@ -33,7 +33,14 @@
         <td>{{ product.description }}</td>
         <td>{{ product.date_release | date: 'dd/MM/yyyy' }}</td>
         <td>{{ product.date_revision | date: 'dd/MM/yyyy' }}</td>
-        <td class="cell-menu"><div class="dots-menu"></div></td>
+        <td>
+          <div class="actions-dropdown">
+            <select name="edit-delete" id="edit-delete" class="actions-select" (change)="handleAction($event, product.id)">
+              <option value="edit">Editar</option>
+              <option value="delete">Eliminar</option>
+            </select>
+          </div>
+        </td>
       </tr>
     }
   </tbody>
