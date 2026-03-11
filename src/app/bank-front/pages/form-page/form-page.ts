@@ -66,5 +66,29 @@ export class FormPage {
       });
   }
 
-  onSave() {}
+  onSave() {
+    if (this.myForm.invalid) {
+      this.myForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.myForm.getRawValue();
+
+    this.productService.createProduct({
+      id: formValue.id!,
+      name: formValue.name!,
+      description: formValue.description!,
+      logo: formValue.logo!,
+      date_release: new Date(formValue.date_release!),
+      date_revision: new Date(formValue.date_revision!),
+    }).subscribe({
+      next: (response) => {
+        console.log('Producto creado:', response);
+        this.myForm.reset();
+      },
+      error: (error) => {
+        console.error('Error al crear el producto:', error);
+      },
+    })
+  }
 }
