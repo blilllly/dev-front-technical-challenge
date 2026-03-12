@@ -39,7 +39,7 @@
               name="edit-delete"
               id="edit-delete"
               class="actions-select"
-              (change)="handleAction($event, product.id)"
+              (change)="handleAction($event, product.id, product.name)"
             >
               <option value="edit">Editar</option>
               <option value="delete">Eliminar</option>
@@ -61,3 +61,5 @@
     </select>
   </div>
 </div>
+
+<delete-dialog (deleted)="deleteProduct.emit($event)" />

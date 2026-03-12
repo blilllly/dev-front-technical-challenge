@@ -4,7 +4,7 @@
   }
 
   @if (!productResource.isLoading()) {
-    <product-table [products]="productResource.value()!" />
+    <product-table [products]="productResource.value()!" (deleteProduct)="deleteProduct($event)" />
   }
 
   @if (productResource.error()) {

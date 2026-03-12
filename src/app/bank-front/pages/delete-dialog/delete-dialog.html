@@ -1,0 +1,6 @@
+<dialog #deleteDialog>
+  <p>¿Estás seguro de eliminar el producto {{ productName() }} ?</p>
+  <hr />
+  <button (click)="cancel()">Cancelar</button>
+  <button (click)="delete()">Confrimar</button>
+</dialog>

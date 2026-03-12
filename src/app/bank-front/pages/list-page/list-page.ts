@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Footer } from '../../../shared/footer/footer';
 import { ProductTable } from '../../../products/components/product-table/product-table';
 import { ProductService } from '../../../products/services/product-service';
 import { rxResource } from '@angular/core/rxjs-interop';
@@ -17,4 +16,10 @@ export class ListPage {
   productResource = rxResource({
     stream: () => this.productService.getProducts(),
   });
+
+  deleteProduct(id: string) {
+    this.productService.deleteProduct(id).subscribe(() => {
+      this.productResource.reload();
+    });
+  }
 }
