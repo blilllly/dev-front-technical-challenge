@@ -1,3 +1,72 @@
 :host {
   display: block;
 }
+
+dialog {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+}
+
+dialog p {
+  padding: 30px 20px;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #000;
+  line-height: 1.4;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 0;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.actions {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  justify-content: center;
+}
+
+button {
+  flex: 1;
+  padding: 12px 0;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:first-of-type {
+  background-color: #ebedf2;
+  color: #1a2b4c;
+}
+
+/* Botón Confirmar (Amarillo) */
+button:last-of-type {
+  background-color: var(--yellow);
+  color: #1e2f52; /* Texto un poco más tenue según la imagen */
+}
+
+/* Ajuste para móviles muy pequeños */
+@media (max-width: 400px) {
+  .actions {
+    flex-direction: column; /* Se apilan si no hay espacio */
+  }
+}
