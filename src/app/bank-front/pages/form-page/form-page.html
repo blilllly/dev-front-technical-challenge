@@ -109,7 +109,9 @@
     </div>
 
     <div class="button-container">
-      <button type="reset" class="btn-reset">Reiniciar</button>
+      <button type="reset" class="btn-reset" (click)="onReset()">
+        {{ isEditMode() ? 'Cancelar' : 'Reiniciar' }}
+      </button>
       <button
         type="submit"
         class="btn-submit"

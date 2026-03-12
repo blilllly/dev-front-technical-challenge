@@ -168,4 +168,10 @@ export class FormPage implements OnInit {
         },
       });
   }
+
+  onReset() {
+    if (this.isEditMode()) {
+      this.router.navigate(['/']);
+    }
+  }
 }
