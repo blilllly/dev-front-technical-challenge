@@ -8,28 +8,29 @@ import { Datum, ResponseBP } from '../interfaces/responseBP.interface';
 })
 export class ProductService {
   private http = inject(HttpClient);
+  private apiUrl = '/bp/products';
 
   getProducts(): Observable<ResponseBP> {
-    return this.http.get<ResponseBP>('/bp/products');
+    return this.http.get<ResponseBP>(this.apiUrl);
   }
 
   verifyId(id: string): Observable<boolean> {
-    return this.http.get<boolean>(`/bp/products/verification/${id}`);
+    return this.http.get<boolean>(`${this.apiUrl}/verification/${id}`);
   }
 
   createProduct(product: Datum): Observable<ResponseBP> {
-    return this.http.post<ResponseBP>(`/bp/products`, product);
+    return this.http.post<ResponseBP>(this.apiUrl, product);
   }
 
   getProductById(id: string): Observable<Datum> {
-    return this.http.get<Datum>(`/bp/products/${id}`);
+    return this.http.get<Datum>(`${this.apiUrl}/${id}`);
   }
 
   updateProduct(id: string, product: Datum): Observable<ResponseBP> {
-    return this.http.put<ResponseBP>(`/bp/products/${id}`, product);
+    return this.http.put<ResponseBP>(`${this.apiUrl}/${id}`, product);
   }
 
   deleteProduct(id: string): Observable<void> {
-    return this.http.delete<void>(`/bp/products/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
