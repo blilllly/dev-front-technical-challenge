@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Datum, ResponseBP } from '../interfaces/responseBP.interface';
 
 @Injectable({
@@ -27,5 +27,9 @@ export class ProductService {
 
   updateProduct(id: string, product: Datum): Observable<ResponseBP> {
     return this.http.put<ResponseBP>(`/bp/products/${id}`, product);
+  }
+
+  deleteProduct(id: string): Observable<void> {
+    return this.http.delete<void>(`/bp/products/${id}`);
   }
 }
