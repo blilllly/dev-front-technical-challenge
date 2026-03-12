@@ -8,57 +8,54 @@
   />
   <button class="btn-add" [routerLink]="['register']">Agregar</button>
 </div>
-
-<table class="table-container">
-  <thead>
-    <tr>
-      <th>Logo</th>
-      <th>Nombre del Producto</th>
-      <th>Descripción <span class="info-icon">i</span></th>
-      <th>Fecha de Liberación <span class="info-icon">i</span></th>
-      <th>Fecha de Reestructuración <span class="info-icon">i</span></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    @for (product of products().data | ProductFilter: searchQuery(); track product.id) {
+<div class="table-container">
+  <table>
+    <thead>
       <tr>
-        <td>
-          <div class="product-logo">
-            {{ product.logo }}
-          </div>
-        </td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.description }}</td>
-        <td>{{ product.date_release | date: 'dd/MM/yyyy' : 'UTC' }}</td>
-        <td>{{ product.date_revision | date: 'dd/MM/yyyy' : 'UTC' }}</td>
-        <td>
-          <div class="actions-dropdown">
-            <select
-              name="edit-delete"
-              id="edit-delete"
-              class="actions-select"
-              (change)="handleAction($event, product.id, product.name)"
-            >
-              <option value="edit">Editar</option>
-              <option value="delete">Eliminar</option>
-            </select>
-          </div>
-        </td>
+        <th>Logo</th>
+        <th>Nombre del Producto</th>
+        <th>Descripción <span class="info-icon">i</span></th>
+        <th>Fecha de Liberación <span class="info-icon">i</span></th>
+        <th>Fecha de Reestructuración <span class="info-icon">i</span></th>
+        <th></th>
       </tr>
-    }
-  </tbody>
-</table>
+    </thead>
 
-<div class="footer-table">
-  <span>{{ products().data.length }} Resultados</span>
-  <div class="pagination-select">
-    <select>
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="10">20</option>
-    </select>
+    <tbody>
+      @for (product of products().data | ProductFilter: searchQuery(); track product.id) {
+        <tr>
+          <td>
+            <div class="product-logo">
+              {{ product.logo }}
+            </div>
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.date_release | date: 'dd/MM/yyyy' : 'UTC' }}</td>
+          <td>{{ product.date_revision | date: 'dd/MM/yyyy' : 'UTC' }}</td>
+          <td>
+            <div class="actions-dropdown">
+              <button class="dots-button">⋮</button>
+              <div class="dropdown-content">
+                <button (click)="editProduct(product.id)">Editar</button>
+                <button (click)="openDeleteDialog(product.id, product.name)">Eliminar</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <div class="footer-table">
+    <span>{{ products().data.length }} Resultados</span>
+    <div class="pagination-select">
+      <select>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="10">20</option>
+      </select>
+    </div>
   </div>
 </div>
 

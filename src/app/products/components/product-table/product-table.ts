@@ -28,14 +28,22 @@ export class ProductTable {
 
   products = input.required<ResponseBP>();
 
-  handleAction(event: Event, productId: string, productName: string) {
-    const selectElement = event.target as HTMLSelectElement;
-    const action = selectElement.value;
-    if (action === 'edit') {
-      this.router.navigate(['/edit', productId]);
-    } else if (action === 'delete') {
-      this.deleteDialog()?.show(productId, productName);
-    }
+  // handleAction(event: Event, productId: string, productName: string) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const action = selectElement.value;
+  //   if (action === 'edit') {
+  //     this.router.navigate(['/edit', productId]);
+  //   } else if (action === 'delete') {
+  //     this.deleteDialog()?.show(productId, productName);
+  //   }
+  // }
+
+  editProduct(productId: string) {
+    this.router.navigate(['/edit', productId]);
+  }
+
+  openDeleteDialog(productId: string, productName: string) {
+    this.deleteDialog()?.show(productId, productName);
   }
 
   deleteProduct = output<string>();
