@@ -48,7 +48,11 @@
   </table>
 
   <div class="footer-table">
-    <span>{{ filteredProducts().length }} Resultados</span>
+    @if (filteredProducts().length === 0) {
+      <span>No se encontraron productos</span>
+    } @else {
+      <span>{{ filteredProducts().length }} Resultados</span>
+    }
     <div class="pagination-select">
       <select (change)="pageSize.set(+$any($event.target).value)">
         <option value="5">5</option>
