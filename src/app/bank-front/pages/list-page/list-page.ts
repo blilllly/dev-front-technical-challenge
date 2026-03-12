@@ -3,7 +3,6 @@ import { ProductTable } from '../../../products/components/product-table/product
 import { ProductService } from '../../../products/services/product-service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ToasterService } from '../../../shared/toaster/toaster-service';
-
 @Component({
   selector: 'list-page',
   imports: [ProductTable],
