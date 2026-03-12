@@ -31,11 +31,16 @@
         </td>
         <td>{{ product.name }}</td>
         <td>{{ product.description }}</td>
-        <td>{{ product.date_release | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ product.date_revision | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ product.date_release | date: 'dd/MM/yyyy' : 'UTC' }}</td>
+        <td>{{ product.date_revision | date: 'dd/MM/yyyy' : 'UTC' }}</td>
         <td>
           <div class="actions-dropdown">
-            <select name="edit-delete" id="edit-delete" class="actions-select" (change)="handleAction($event, product.id)">
+            <select
+              name="edit-delete"
+              id="edit-delete"
+              class="actions-select"
+              (change)="handleAction($event, product.id)"
+            >
               <option value="edit">Editar</option>
               <option value="delete">Eliminar</option>
             </select>

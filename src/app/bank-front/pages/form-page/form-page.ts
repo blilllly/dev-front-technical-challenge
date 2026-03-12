@@ -1,11 +1,19 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
 import { ProductService } from '../../../products/services/product-service';
 import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Datum } from '../../../products/interfaces/responseBP.interface';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
+import { map, of } from 'rxjs';
 
 @Component({
   selector: 'form-page',
@@ -14,12 +22,16 @@ import { map } from 'rxjs';
   styleUrl: './form-page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormPage {
+export class FormPage implements OnInit {
+  private activatedRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private productService = inject(ProductService);
+  private fb = inject(FormBuilder);
 
-  // Obtener el ID del producto de la URL
-  activatedRoute = inject(ActivatedRoute);
-  router = inject(Router);
-  productId = toSignal(this.activatedRoute.params.pipe(map((params) => params['id'])));
+  formUtils = FormUtils;
+
+  isEditMode = signal<boolean>(false);
+  productId = signal<string | null>(null);
 
   minDate = signal<string>(this.getToday());
 
@@ -30,11 +42,6 @@ export class FormPage {
     const localDate = new Date(today.getTime() - offset * 60000);
     return localDate.toISOString().split('T')[0];
   }
-
-  formUtils = FormUtils;
-  productService = inject(ProductService);
-
-  private fb = inject(FormBuilder);
 
   myForm = this.fb.group({
     id: [
@@ -49,9 +56,45 @@ export class FormPage {
     date_revision: [{ value: '', disabled: true }, Validators.required],
   });
 
+  productResource = rxResource({
+    params: () => ({ idSlug: this.productId() }),
+    stream: ({ params }) => {
+      if (!params.idSlug) return of(null);
+      return this.productService.getProductById(params.idSlug);
+    },
+  });
+
   constructor() {
     this.listenReleaseDate();
+
+    //llenar formulario en modo edición
+    effect(() => {
+      const product = this.productResource.value();
+
+      if (!product) return;
+
+      this.myForm.patchValue({
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        logo: product.logo,
+        date_release: new Date(product.date_release).toISOString().split('T')[0],
+        date_revision: new Date(product.date_revision).toISOString().split('T')[0],
+      });
+
+      //disable el campo id en modo edición
+      this.myForm.get('id')?.disable();
+    });
   }
+
+  ngOnInit(): void {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.productId.set(id);
+    this.isEditMode.set(!!id);
+  }
+
+  loadProduct(id: string) {}
 
   private listenReleaseDate() {
     this.myForm
@@ -82,21 +125,47 @@ export class FormPage {
 
     const formValue = this.myForm.getRawValue();
 
-    this.productService.createProduct({
-      id: formValue.id!,
-      name: formValue.name!,
-      description: formValue.description!,
-      logo: formValue.logo!,
-      date_release: new Date(formValue.date_release!),
-      date_revision: new Date(formValue.date_revision!),
-    }).subscribe({
-      next: (response) => {
-        console.log('Producto creado:', response);
-        this.myForm.reset();
-      },
-      error: (error) => {
-        console.error('Error al crear el producto:', error);
-      },
-    })
+    if (this.isEditMode()) {
+      this.productService
+        .updateProduct(this.productId()!, {
+          id: formValue.id!,
+          name: formValue.name!,
+          description: formValue.description!,
+          logo: formValue.logo!,
+          date_release: new Date(formValue.date_release!),
+          date_revision: new Date(formValue.date_revision!),
+        })
+        .subscribe({
+          next: (response) => {
+            console.log('Producto actualizado:', response);
+            this.myForm.reset();
+            this.router.navigate(['/']);
+          },
+          error: (error) => {
+            console.error('Error al actualizar el producto:', error);
+          },
+        });
+      return;
+    }
+
+    this.productService
+      .createProduct({
+        id: formValue.id!,
+        name: formValue.name!,
+        description: formValue.description!,
+        logo: formValue.logo!,
+        date_release: new Date(formValue.date_release!),
+        date_revision: new Date(formValue.date_revision!),
+      })
+      .subscribe({
+        next: (response) => {
+          console.log('Producto creado:', response);
+          this.myForm.reset();
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          console.error('Error al crear el producto:', error);
+        },
+      });
   }
 }

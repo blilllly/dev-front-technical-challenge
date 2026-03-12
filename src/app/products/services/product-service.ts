@@ -20,4 +20,12 @@ export class ProductService {
   createProduct(product: Datum): Observable<ResponseBP> {
     return this.http.post<ResponseBP>(`/bp/products`, product);
   }
+
+  getProductById(id: string): Observable<Datum> {
+    return this.http.get<Datum>(`/bp/products/${id}`);
+  }
+
+  updateProduct(id: string, product: Datum): Observable<ResponseBP> {
+    return this.http.put<ResponseBP>(`/bp/products/${id}`, product);
+  }
 }

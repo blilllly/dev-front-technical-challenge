@@ -1,6 +1,8 @@
 <div class="form-container">
   <div class="form-header">
-    <h2>Formulario de registro</h2>
+    <h2>
+      {{ isEditMode() ? 'Editar Producto' : 'Formulario de registro' }}
+    </h2>
     <hr />
   </div>
 
@@ -114,7 +116,7 @@
         [disabled]="myForm.invalid"
         [class.disable]="myForm.invalid"
       >
-        Enviar
+        {{ isEditMode() ? 'Actualizar' : 'Registrar' }}
       </button>
     </div>
   </form>
