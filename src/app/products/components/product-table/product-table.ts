@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
   output,
@@ -22,21 +23,22 @@ import { DeleteDialog } from '../../../bank-front/pages/delete-dialog/delete-dia
 })
 export class ProductTable {
   private router = inject(Router);
+  private filterPipe = new ProductFilterPipe();
+
   deleteDialog = viewChild(DeleteDialog);
 
   searchQuery = signal('');
+  pageSize = signal(5);
 
   products = input.required<ResponseBP>();
 
-  // handleAction(event: Event, productId: string, productName: string) {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   const action = selectElement.value;
-  //   if (action === 'edit') {
-  //     this.router.navigate(['/edit', productId]);
-  //   } else if (action === 'delete') {
-  //     this.deleteDialog()?.show(productId, productName);
-  //   }
-  // }
+  deleteProduct = output<string>();
+
+  filteredProducts = computed(() =>
+    this.filterPipe.transform(this.products().data, this.searchQuery()),
+  );
+
+  visibleProducts = computed(() => this.filteredProducts().slice(0, this.pageSize()));
 
   editProduct(productId: string) {
     this.router.navigate(['/edit', productId]);
@@ -45,6 +47,4 @@ export class ProductTable {
   openDeleteDialog(productId: string, productName: string) {
     this.deleteDialog()?.show(productId, productName);
   }
-
-  deleteProduct = output<string>();
 }
