@@ -14,6 +14,7 @@ import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-int
 import { Datum } from '../../../products/interfaces/responseBP.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, of } from 'rxjs';
+import { ToasterService } from '../../../shared/toaster/toaster-service';
 
 @Component({
   selector: 'form-page',
@@ -26,6 +27,7 @@ export class FormPage implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private router = inject(Router);
   private productService = inject(ProductService);
+  private toasterService = inject(ToasterService);
   private fb = inject(FormBuilder);
 
   formUtils = FormUtils;
@@ -137,12 +139,17 @@ export class FormPage implements OnInit {
         })
         .subscribe({
           next: (response) => {
-            console.log('Producto actualizado:', response);
+            this.toasterService.show(
+              'Actualizado',
+              'Producto actualizado correctamente',
+              'success',
+            );
             this.myForm.reset();
             this.router.navigate(['/']);
           },
           error: (error) => {
-            console.error('Error al actualizar el producto:', error);
+            this.toasterService.show('Error', 'Error al actualizar el producto', 'danger');
+            this.router.navigate(['/']);
           },
         });
       return;
@@ -159,12 +166,13 @@ export class FormPage implements OnInit {
       })
       .subscribe({
         next: (response) => {
-          console.log('Producto creado:', response);
+          this.toasterService.show('Creado', 'Producto creado correctamente', 'success');
           this.myForm.reset();
           this.router.navigate(['/']);
         },
         error: (error) => {
-          console.error('Error al crear el producto:', error);
+          this.toasterService.show('Error', 'Error al crear el producto', 'danger');
+          this.router.navigate(['/']);
         },
       });
   }

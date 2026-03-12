@@ -16,7 +16,7 @@ import { DeleteDialog } from '../../../bank-front/pages/delete-dialog/delete-dia
 
 @Component({
   selector: 'product-table',
-  imports: [ProductFilterPipe, DatePipe, RouterLink, DeleteDialog],
+  imports: [DatePipe, RouterLink, DeleteDialog],
   templateUrl: './product-table.html',
   styleUrl: './product-table.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

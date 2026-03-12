@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ProductTable } from '../../../products/components/product-table/product-table';
 import { ProductService } from '../../../products/services/product-service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { ToasterService } from '../../../shared/toaster/toaster-service';
 
 @Component({
   selector: 'list-page',
@@ -11,15 +12,23 @@ import { rxResource } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListPage {
-  productService = inject(ProductService);
+  private productService = inject(ProductService);
+  private toasterService = inject(ToasterService);
 
   productResource = rxResource({
     stream: () => this.productService.getProducts(),
   });
 
   deleteProduct(id: string) {
-    this.productService.deleteProduct(id).subscribe(() => {
-      this.productResource.reload();
+    this.productService.deleteProduct(id).subscribe({
+      next: () => {
+        this.toasterService.show('Eliminado', 'Producto eliminado correctamente', 'success');
+        this.productResource.reload();
+      },
+      error: (error) => {
+        this.toasterService.show('Error', 'Error al eliminar el producto', 'danger');
+        console.error('Error al eliminar el producto:', error);
+      },
     });
   }
 }
