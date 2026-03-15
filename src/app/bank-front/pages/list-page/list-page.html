@@ -3,11 +3,11 @@
     <p>Cargando productos...</p>
   }
 
-  @if (productResource.value(); as products) {
-    <product-table [products]="products" (deleteProduct)="deleteProduct($event)" />
-  }
-
   @if (productResource.error()) {
     <p>Estado de error..</p>
+  }
+
+  @if (productResource.value(); as products) {
+    <product-table [products]="products" (deleteProduct)="deleteProduct($event)" />
   }
 </div>
