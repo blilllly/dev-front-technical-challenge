@@ -1,5 +1,5 @@
 import { Pipe, type PipeTransform } from '@angular/core';
-import { Datum } from '../products/interfaces/responseBP.interface';
+import { Datum } from '../interfaces/responseBP.interface';
 
 @Pipe({
   name: 'ProductFilter',

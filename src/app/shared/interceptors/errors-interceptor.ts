@@ -1,6 +1,6 @@
 import type { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { ToasterService } from '../../shared/toaster/toaster-service';
+import { ToasterService } from '../toaster/toaster-service';
 import { catchError, throwError } from 'rxjs';
 
 export const errorsInterceptor: HttpInterceptorFn = (req, next) => {

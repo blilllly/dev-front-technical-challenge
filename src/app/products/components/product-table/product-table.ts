@@ -9,10 +9,10 @@ import {
   viewChild,
 } from '@angular/core';
 import { ResponseBP } from '../../interfaces/responseBP.interface';
-import { ProductFilterPipe } from '../../../pipes/product-filter-pipe';
 import { DatePipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { DeleteDialog } from '../../../bank-front/pages/delete-dialog/delete-dialog';
+import { ProductFilterPipe } from '../../pipes/product-filter-pipe';
 
 @Component({
   selector: 'product-table',
