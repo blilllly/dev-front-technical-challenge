@@ -18,6 +18,9 @@ export class ToasterService {
   private counter: number = 0;
 
   show(title: string, description: string, type: ToasterType = 'info', autoCloseMs: number = 3000) {
+    const exists = this.toasts().some((t) => t.title === title && t.description === description);
+    if (exists) return;
+
     const id = this.counter++;
     const isOpen = signal(false);
     const toast: Toast = {
@@ -25,7 +28,7 @@ export class ToasterService {
       title,
       description,
       type,
-      isOpen: signal(true),
+      isOpen,
     };
     this.toasts.update((list) => [...list, toast]);
     queueMicrotask(() => isOpen.set(true));

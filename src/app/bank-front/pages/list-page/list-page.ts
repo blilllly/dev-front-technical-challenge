@@ -3,6 +3,8 @@ import { ProductTable } from '../../../products/components/product-table/product
 import { ProductService } from '../../../products/services/product-service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ToasterService } from '../../../shared/toaster/toaster-service';
+import { ResponseBP } from '../../../products/interfaces/responseBP.interface';
+import { catchError, of } from 'rxjs';
 @Component({
   selector: 'list-page',
   imports: [ProductTable],
@@ -15,7 +17,14 @@ export class ListPage {
   private toasterService = inject(ToasterService);
 
   productResource = rxResource({
-    stream: () => this.productService.getProducts(),
+    stream: () =>
+      this.productService.getProducts().pipe(
+        catchError(() => {
+          return of({
+            data: [],
+          } as ResponseBP);
+        }),
+      ),
   });
 
   deleteProduct(id: string) {

@@ -3,8 +3,8 @@
     <p>Cargando productos...</p>
   }
 
-  @if (!productResource.isLoading()) {
-    <product-table [products]="productResource.value()!" (deleteProduct)="deleteProduct($event)" />
+  @if (productResource.value(); as products) {
+    <product-table [products]="products" (deleteProduct)="deleteProduct($event)" />
   }
 
   @if (productResource.error()) {
